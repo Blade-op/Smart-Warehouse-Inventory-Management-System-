@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Search,
   Filter,
   Download,
   RefreshCw,
   ArrowUpDown,
+  Store,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
@@ -27,6 +29,15 @@ import {
 import { cn } from "@/lib/utils";
 import api from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/AuthContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type InventoryItemType = {
   _id: string;
@@ -63,23 +74,118 @@ const Inventory = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedWarehouse, setSelectedWarehouse] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [offlineOpen, setOfflineOpen] = useState(false);
+  const [offlineItemId, setOfflineItemId] = useState("");
+  const [offlineQty, setOfflineQty] = useState("1");
+  const [savingOffline, setSavingOffline] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
+
+  const loadInventory = useCallback(async () => {
+    try {
+      const res = await api.get<InventoryItemType[]>("/inventory");
+      setItems(res.data);
+    } catch (error: any) {
+      toast({
+        title: "Failed to load inventory",
+        description: error?.response?.data?.message || "Please try again.",
+        variant: "destructive",
+      });
+    }
+  }, [toast]);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await api.get<InventoryItemType[]>("/inventory");
-        setItems(res.data);
-      } catch (error: any) {
-        toast({
-          title: "Failed to load inventory",
-          description: error?.response?.data?.message || "Please try again.",
-          variant: "destructive",
-        });
-      }
-    };
-    load();
-  }, [toast]);
+    loadInventory();
+  }, [loadInventory]);
+
+  const openOfflineSale = (itemId?: string) => {
+    setOfflineItemId(itemId || "");
+    setOfflineQty("1");
+    setOfflineOpen(true);
+  };
+
+  const submitOfflineSale = async () => {
+    const qty = parseInt(offlineQty, 10);
+    if (!offlineItemId || !Number.isFinite(qty) || qty < 1) {
+      toast({
+        title: "Invalid input",
+        description: "Choose a stock line and enter quantity (1 or more).",
+        variant: "destructive",
+      });
+      return;
+    }
+    setSavingOffline(true);
+    try {
+      await api.post("/inventory/offline-sale", {
+        inventoryItemId: offlineItemId,
+        quantity: qty,
+      });
+      toast({
+        title: "Offline sale recorded",
+        description: "Units removed from available stock.",
+      });
+      setOfflineOpen(false);
+      await loadInventory();
+    } catch (error: any) {
+      toast({
+        title: "Could not record sale",
+        description: error?.response?.data?.message || "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingOffline(false);
+    }
+  };
+
+  const handleExport = () => {
+    // Create CSV content
+    const headers = [
+      "Product Name",
+      "SKU",
+      "Warehouse",
+      "Quantity",
+      "Reserved",
+      "Available",
+      "Status",
+      "Last Updated"
+    ];
+    
+    const csvContent = [
+      headers.join(","),
+      ...filteredInventory.map(item => [
+        `"${item.product.name}"`,
+        item.product.sku,
+        `"${item.warehouse.name}"`,
+        item.quantity,
+        item.reserved,
+        item.available,
+        statusLabels[item.status],
+        new Date(item.lastUpdated).toLocaleDateString()
+      ].join(","))
+    ].join("\n");
+
+    // Create and download file
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `inventory_export_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast({
+      title: "Export completed",
+      description: "Inventory data has been exported to CSV.",
+    });
+  };
+
+  const warehouseNames = useMemo(
+    () => [...new Set(items.map((i) => i.warehouse.name))].sort(),
+    [items]
+  );
 
   const filteredInventory = items.filter((item) => {
     const matchesSearch =
@@ -102,14 +208,20 @@ const Inventory = () => {
             Real-time stock tracking across all warehouses
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" className="gap-2">
+        <div className="flex items-center gap-3 flex-wrap">
+          {isAdmin && (
+            <Button className="btn-primary gap-2" onClick={() => openOfflineSale()}>
+              <Store className="w-4 h-4" />
+              Record offline sale
+            </Button>
+          )}
+          <Button variant="outline" className="gap-2" onClick={handleExport}>
             <Download className="w-4 h-4" />
             Export
           </Button>
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2" onClick={() => loadInventory()}>
             <RefreshCw className="w-4 h-4" />
-            Sync
+            Refresh
           </Button>
         </div>
       </div>
@@ -131,11 +243,11 @@ const Inventory = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Warehouses</SelectItem>
-            {/* Values should match warehouse names in DB */}
-            <SelectItem value="Warehouse A">Warehouse A</SelectItem>
-            <SelectItem value="Warehouse B">Warehouse B</SelectItem>
-            <SelectItem value="Warehouse C">Warehouse C</SelectItem>
-            <SelectItem value="Warehouse D">Warehouse D</SelectItem>
+            {warehouseNames.map((name) => (
+              <SelectItem key={name} value={name}>
+                {name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select value={selectedStatus} onValueChange={setSelectedStatus}>
@@ -213,6 +325,9 @@ const Inventory = () => {
               <TableHead className="text-muted-foreground text-right">Available</TableHead>
               <TableHead className="text-muted-foreground">Status</TableHead>
               <TableHead className="text-muted-foreground">Last Updated</TableHead>
+              {isAdmin && (
+                <TableHead className="text-muted-foreground text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -253,13 +368,78 @@ const Inventory = () => {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-sm text-muted-foreground">
-                  {item.lastUpdated}
+                  {item.lastUpdated
+                    ? new Date(item.lastUpdated).toLocaleString()
+                    : "—"}
                 </TableCell>
+                {isAdmin && (
+                  <TableCell className="text-right">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-primary"
+                      disabled={item.available < 1}
+                      onClick={() => openOfflineSale(item._id)}
+                    >
+                      Sell offline
+                    </Button>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
+
+      <Dialog open={offlineOpen} onOpenChange={setOfflineOpen}>
+        <DialogContent className="glass-card border-border max-w-md">
+          <DialogHeader>
+            <DialogTitle>Record offline sale</DialogTitle>
+            <DialogDescription>
+              Use this when a customer buys at a walk-in counter or cash counter. Only{" "}
+              <strong>available</strong> units (not reserved for online orders) can be sold.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-2">
+            <div className="grid gap-2">
+              <Label>Stock line</Label>
+              <Select value={offlineItemId} onValueChange={setOfflineItemId}>
+                <SelectTrigger className="input-field">
+                  <SelectValue placeholder="Select product + warehouse" />
+                </SelectTrigger>
+                <SelectContent className="max-h-[280px]">
+                  {items
+                    .filter((i) => i.available > 0)
+                    .map((i) => (
+                      <SelectItem key={i._id} value={i._id}>
+                        {i.product.sku} · {i.warehouse.name} · avail {i.available}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="offline-qty">Quantity sold</Label>
+              <Input
+                id="offline-qty"
+                type="number"
+                min={1}
+                className="input-field"
+                value={offlineQty}
+                onChange={(e) => setOfflineQty(e.target.value)}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOfflineOpen(false)}>
+              Cancel
+            </Button>
+            <Button className="btn-primary" disabled={savingOffline} onClick={submitOfflineSale}>
+              {savingOffline ? "Saving…" : "Confirm sale"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

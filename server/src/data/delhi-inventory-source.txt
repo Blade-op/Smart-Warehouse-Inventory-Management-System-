@@ -1,0 +1,300 @@
+Disney Princess Doll TOY-001 44 6 38 medium
+Toy Train Set TOY-002 337 68 269 optimal
+Fire Truck Toy TOY-003 160 6 154 optimal
+Dinosaur Figure Set TOY-004 282 39 243 optimal
+RC Drone TOY-005 294 43 251 optimal
+STEM Robot Kit TOY-006 138 14 124 optimal
+Disney Princess Doll TOY-007 39 4 35 low
+Doctor Play Kit TOY-008 146 12 134 optimal
+STEM Robot Kit TOY-009 124 16 108 optimal
+Thomas Engine Toy TOY-010 204 23 181 optimal
+Jenga Blocks TOY-011 149 35 114 optimal
+Dinosaur Figure Set TOY-012 223 25 198 optimal
+Hot Wheels Car TOY-013 16 2 14 low
+Foam Sword TOY-014 106 23 83 optimal
+Beyblade Burst Set TOY-015 55 6 49 medium
+Toy Basketball Hoop TOY-016 296 45 251 optimal
+Dinosaur Figure Set TOY-017 85 8 77 medium
+Barbie Doll TOY-018 146 9 137 optimal
+Monopoly Board Game TOY-019 100 6 94 optimal
+STEM Robot Kit TOY-020 167 37 130 optimal
+Rubik's Cube TOY-021 343 38 305 optimal
+Hot Wheels Car TOY-022 168 1 167 optimal
+UNO Card Game TOY-023 91 8 83 medium
+Hot Wheels Car TOY-024 227 46 181 optimal
+Monopoly Board Game TOY-025 109 1 108 optimal
+Play-Doh Set TOY-026 54 13 41 medium
+Matchbox Car TOY-027 36 6 30 low
+Excavator Toy TOY-028 169 21 148 optimal
+Transformers Action Figure TOY-029 65 2 63 medium
+Matchbox Car TOY-030 231 54 177 optimal
+Bubble Maker Machine TOY-031 95 19 76 medium
+Kitchen Play Set TOY-032 311 48 263 optimal
+Transformers Action Figure TOY-033 255 8 247 optimal
+STEM Robot Kit TOY-034 132 32 100 optimal
+Animal Figure Set TOY-035 347 37 310 optimal
+RC Monster Truck TOY-036 71 5 66 medium
+Jenga Blocks TOY-037 38 5 33 low
+Police Car Toy TOY-038 208 51 157 optimal
+Transformers Action Figure TOY-039 149 17 132 optimal
+Play-Doh Set TOY-040 155 6 149 optimal
+Hot Wheels Car TOY-041 72 3 69 medium
+Spider-Man Action Figure TOY-042 269 58 211 optimal
+Foam Sword TOY-043 297 5 292 optimal
+Kitchen Play Set TOY-044 154 7 147 optimal
+Disney Princess Doll TOY-045 62 15 47 medium
+Animal Figure Set TOY-046 314 76 238 optimal
+RC Monster Truck TOY-047 118 26 92 optimal
+Toy Basketball Hoop TOY-048 212 27 185 optimal
+LEGO Classic Bricks TOY-049 245 47 198 optimal
+Spider-Man Action Figure TOY-050 108 13 95 optimal
+Jenga Blocks TOY-051 181 35 146 optimal
+Dinosaur Figure Set TOY-052 180 13 167 optimal
+Disney Princess Doll TOY-053 125 2 123 optimal
+Doctor Play Kit TOY-054 276 13 263 optimal
+Construction Bulldozer Toy TOY-055 221 37 184 optimal
+Matchbox Car TOY-056 49 7 42 medium
+Kitchen Play Set TOY-057 155 14 141 optimal
+Construction Bulldozer Toy TOY-058 26 6 20 low
+Jenga Blocks TOY-059 78 13 65 medium
+Monopoly Board Game TOY-060 203 7 196 optimal
+Toy Basketball Hoop TOY-061 127 7 120 optimal
+Fisher-Price Rattle TOY-062 17 1 16 low
+Yo-Yo Toy TOY-063 121 17 104 optimal
+Doctor Play Kit TOY-064 28 3 25 low
+Yo-Yo Toy TOY-065 227 40 187 optimal
+Beyblade Burst Set TOY-066 30 2 28 low
+Wooden Puzzle TOY-067 312 17 295 optimal
+UNO Card Game TOY-068 135 6 129 optimal
+Foam Sword TOY-069 201 28 173 optimal
+Doctor Play Kit TOY-070 160 29 131 optimal
+Barbie Doll TOY-071 85 13 72 medium
+Kitchen Play Set TOY-072 288 30 258 optimal
+RC Monster Truck TOY-073 107 9 98 optimal
+Doctor Play Kit TOY-074 43 9 34 medium
+LEGO Classic Bricks TOY-075 98 14 84 medium
+Toy Train Set TOY-076 256 37 219 optimal
+Magnetic Tiles TOY-077 88 11 77 medium
+Jenga Blocks TOY-078 295 15 280 optimal
+Construction Bulldozer Toy TOY-079 330 50 280 optimal
+Yo-Yo Toy TOY-080 106 4 102 optimal
+Excavator Toy TOY-081 338 23 315 optimal
+Toy Basketball Hoop TOY-082 290 68 222 optimal
+Nerf Blaster TOY-083 331 54 277 optimal
+Animal Figure Set TOY-084 322 57 265 optimal
+Dinosaur Figure Set TOY-085 104 6 98 optimal
+RC Drone TOY-086 245 12 233 optimal
+Hot Wheels Car TOY-087 17 2 15 low
+Bubble Maker Machine TOY-088 28 5 23 low
+Disney Princess Doll TOY-089 172 24 148 optimal
+Bubble Maker Machine TOY-090 293 23 270 optimal
+Toy Train Set TOY-091 197 43 154 optimal
+Matchbox Car TOY-092 20 4 16 low
+Rubik's Cube TOY-093 46 6 40 medium
+Fire Truck Toy TOY-094 106 24 82 optimal
+UNO Card Game TOY-095 303 29 274 optimal
+Play-Doh Set TOY-096 238 13 225 optimal
+Kitchen Play Set TOY-097 294 14 280 optimal
+Magnetic Tiles TOY-098 142 18 124 optimal
+Construction Bulldozer Toy TOY-099 238 50 188 optimal
+Spider-Man Action Figure TOY-100 314 53 261 optimal
+Police Car Toy TOY-101 283 14 269 optimal
+STEM Robot Kit TOY-102 344 86 258 optimal
+Nerf Blaster TOY-103 228 54 174 optimal
+Transformers Action Figure TOY-104 159 38 121 optimal
+STEM Robot Kit TOY-105 276 34 242 optimal
+Fire Truck Toy TOY-106 198 11 187 optimal
+Play-Doh Set TOY-107 339 16 323 optimal
+Doctor Play Kit TOY-108 36 1 35 low
+Beyblade Burst Set TOY-109 153 4 149 optimal
+Animal Figure Set TOY-110 215 5 210 optimal
+Kitchen Play Set TOY-111 253 53 200 optimal
+Kitchen Play Set TOY-112 349 26 323 optimal
+Kids Learning Laptop TOY-113 149 12 137 optimal
+Toy Basketball Hoop TOY-114 330 48 282 optimal
+Police Car Toy TOY-115 48 7 41 medium
+Transformers Action Figure TOY-116 228 38 190 optimal
+Barbie Doll TOY-117 182 38 144 optimal
+Toy Train Set TOY-118 86 14 72 medium
+Bubble Maker Machine TOY-119 81 15 66 medium
+Rubik's Cube TOY-120 44 6 38 medium
+Excavator Toy TOY-121 210 25 185 optimal
+Excavator Toy TOY-122 193 2 191 optimal
+Wooden Puzzle TOY-123 285 61 224 optimal
+STEM Robot Kit TOY-124 31 1 30 low
+UNO Card Game TOY-125 90 18 72 medium
+Animal Figure Set TOY-126 247 2 245 optimal
+Kitchen Play Set TOY-127 158 33 125 optimal
+Monopoly Board Game TOY-128 325 55 270 optimal
+Disney Princess Doll TOY-129 308 39 269 optimal
+Jenga Blocks TOY-130 102 6 96 optimal
+STEM Robot Kit TOY-131 294 71 223 optimal
+Spider-Man Action Figure TOY-132 289 69 220 optimal
+Doctor Play Kit TOY-133 85 16 69 medium
+Police Car Toy TOY-134 108 2 106 optimal
+Construction Bulldozer Toy TOY-135 210 3 207 optimal
+Yo-Yo Toy TOY-136 41 10 31 medium
+Play-Doh Set TOY-137 144 7 137 optimal
+Barbie Doll TOY-138 237 7 230 optimal
+Beyblade Burst Set TOY-139 184 28 156 optimal
+Kitchen Play Set TOY-140 220 49 171 optimal
+Monopoly Board Game TOY-141 241 52 189 optimal
+Monopoly Board Game TOY-142 287 70 217 optimal
+STEM Robot Kit TOY-143 34 5 29 low
+Toy Train Set TOY-144 187 19 168 optimal
+Excavator Toy TOY-145 87 10 77 medium
+Rubik's Cube TOY-146 285 14 271 optimal
+Magnetic Tiles TOY-147 90 16 74 medium
+RC Monster Truck TOY-148 311 9 302 optimal
+Yo-Yo Toy TOY-149 169 38 131 optimal
+UNO Card Game TOY-150 26 5 21 low
+Yo-Yo Toy TOY-151 141 6 135 optimal
+Fire Truck Toy TOY-152 232 13 219 optimal
+Fire Truck Toy TOY-153 169 15 154 optimal
+STEM Robot Kit TOY-154 207 49 158 optimal
+Toy Train Set TOY-155 33 3 30 low
+Bubble Maker Machine TOY-156 260 65 195 optimal
+RC Drone TOY-157 350 50 300 optimal
+Barbie Doll TOY-158 102 15 87 optimal
+Matchbox Car TOY-159 22 1 21 low
+Fire Truck Toy TOY-160 332 41 291 optimal
+STEM Robot Kit TOY-161 125 23 102 optimal
+Spider-Man Action Figure TOY-162 290 36 254 optimal
+Construction Bulldozer Toy TOY-163 105 25 80 optimal
+Spider-Man Action Figure TOY-164 77 10 67 medium
+Rubik's Cube TOY-165 244 20 224 optimal
+Disney Princess Doll TOY-166 220 54 166 optimal
+Hot Wheels Car TOY-167 346 85 261 optimal
+STEM Robot Kit TOY-168 217 51 166 optimal
+Kids Learning Laptop TOY-169 62 2 60 medium
+RC Monster Truck TOY-170 43 10 33 medium
+Kids Learning Laptop TOY-171 326 27 299 optimal
+Spider-Man Action Figure TOY-172 105 16 89 optimal
+Monopoly Board Game TOY-173 78 19 59 medium
+Nerf Blaster TOY-174 103 16 87 optimal
+Fire Truck Toy TOY-175 133 20 113 optimal
+RC Monster Truck TOY-176 33 6 27 low
+Wooden Puzzle TOY-177 320 7 313 optimal
+Animal Figure Set TOY-178 174 6 168 optimal
+Barbie Doll TOY-179 284 28 256 optimal
+Doctor Play Kit TOY-180 340 20 320 optimal
+Thomas Engine Toy TOY-181 58 12 46 medium
+Foam Sword TOY-182 279 42 237 optimal
+Magnetic Tiles TOY-183 101 14 87 optimal
+Bubble Maker Machine TOY-184 19 3 16 low
+Kitchen Play Set TOY-185 160 39 121 optimal
+STEM Robot Kit TOY-186 130 1 129 optimal
+Doctor Play Kit TOY-187 329 68 261 optimal
+RC Monster Truck TOY-188 266 56 210 optimal
+Dinosaur Figure Set TOY-189 242 55 187 optimal
+Nerf Blaster TOY-190 238 2 236 optimal
+Animal Figure Set TOY-191 342 68 274 optimal
+Matchbox Car TOY-192 303 12 291 optimal
+Rubik's Cube TOY-193 327 30 297 optimal
+Yo-Yo Toy TOY-194 176 18 158 optimal
+Wooden Puzzle TOY-195 39 9 30 low
+Construction Bulldozer Toy TOY-196 139 33 106 optimal
+Construction Bulldozer Toy TOY-197 302 74 228 optimal
+Play-Doh Set TOY-198 205 14 191 optimal
+Barbie Doll TOY-199 248 10 238 optimal
+UNO Card Game TOY-200 57 7 50 medium
+Foam Sword TOY-201 105 25 80 optimal
+Beyblade Burst Set TOY-202 90 22 68 medium
+Barbie Doll TOY-203 322 26 296 optimal
+Nerf Blaster TOY-204 177 27 150 optimal
+Transformers Action Figure TOY-205 299 63 236 optimal
+Yo-Yo Toy TOY-206 151 20 131 optimal
+Excavator Toy TOY-207 328 42 286 optimal
+Doctor Play Kit TOY-208 185 15 170 optimal
+Matchbox Car TOY-209 313 34 279 optimal
+Foam Sword TOY-210 205 40 165 optimal
+Foam Sword TOY-211 136 8 128 optimal
+Wooden Puzzle TOY-212 88 21 67 medium
+Spider-Man Action Figure TOY-213 222 6 216 optimal
+Doctor Play Kit TOY-214 153 11 142 optimal
+Dinosaur Figure Set TOY-215 36 4 32 low
+Foam Sword TOY-216 325 52 273 optimal
+Animal Figure Set TOY-217 127 20 107 optimal
+Dinosaur Figure Set TOY-218 106 23 83 optimal
+UNO Card Game TOY-219 320 35 285 optimal
+LEGO Classic Bricks TOY-220 112 3 109 optimal
+STEM Robot Kit TOY-221 219 38 181 optimal
+Kids Learning Laptop TOY-222 252 32 220 optimal
+Construction Bulldozer Toy TOY-223 63 5 58 medium
+Toy Train Set TOY-224 262 46 216 optimal
+Doctor Play Kit TOY-225 154 14 140 optimal
+RC Drone TOY-226 266 53 213 optimal
+Doctor Play Kit TOY-227 190 16 174 optimal
+Toy Train Set TOY-228 120 23 97 optimal
+Magnetic Tiles TOY-229 234 3 231 optimal
+Jenga Blocks TOY-230 188 35 153 optimal
+LEGO Classic Bricks TOY-231 343 9 334 optimal
+RC Drone TOY-232 93 1 92 medium
+Yo-Yo Toy TOY-233 39 1 38 low
+Toy Basketball Hoop TOY-234 109 6 103 optimal
+Rubik's Cube TOY-235 59 9 50 medium
+LEGO Classic Bricks TOY-236 183 43 140 optimal
+Kitchen Play Set TOY-237 63 11 52 medium
+Transformers Action Figure TOY-238 51 11 40 medium
+LEGO Classic Bricks TOY-239 233 1 232 optimal
+Excavator Toy TOY-240 104 26 78 optimal
+Kids Learning Laptop TOY-241 123 9 114 optimal
+Transformers Action Figure TOY-242 57 4 53 medium
+Disney Princess Doll TOY-243 211 26 185 optimal
+Thomas Engine Toy TOY-244 33 2 31 low
+Fisher-Price Rattle TOY-245 312 63 249 optimal
+Monopoly Board Game TOY-246 160 23 137 optimal
+Disney Princess Doll TOY-247 347 35 312 optimal
+RC Drone TOY-248 268 46 222 optimal
+Kitchen Play Set TOY-249 44 11 33 medium
+Nerf Blaster TOY-250 178 6 172 optimal
+Nerf Blaster TOY-251 148 24 124 optimal
+Barbie Doll TOY-252 197 16 181 optimal
+Construction Bulldozer Toy TOY-253 77 6 71 medium
+Bubble Maker Machine TOY-254 228 24 204 optimal
+Toy Basketball Hoop TOY-255 297 71 226 optimal
+Monopoly Board Game TOY-256 118 10 108 optimal
+Yo-Yo Toy TOY-257 223 29 194 optimal
+Thomas Engine Toy TOY-258 34 3 31 low
+Rubik's Cube TOY-259 214 37 177 optimal
+Kids Learning Laptop TOY-260 94 14 80 medium
+Barbie Doll TOY-261 337 2 335 optimal
+Magnetic Tiles TOY-262 81 15 66 medium
+Excavator Toy TOY-263 43 2 41 medium
+Yo-Yo Toy TOY-264 245 16 229 optimal
+Animal Figure Set TOY-265 333 25 308 optimal
+Monopoly Board Game TOY-266 143 16 127 optimal
+Jenga Blocks TOY-267 292 2 290 optimal
+Monopoly Board Game TOY-268 332 26 306 optimal
+Disney Princess Doll TOY-269 191 13 178 optimal
+Barbie Doll TOY-270 262 4 258 optimal
+Kitchen Play Set TOY-271 187 21 166 optimal
+Toy Train Set TOY-272 200 11 189 optimal
+Foam Sword TOY-273 188 5 183 optimal
+Toy Basketball Hoop TOY-274 310 23 287 optimal
+Barbie Doll TOY-275 339 52 287 optimal
+Bubble Maker Machine TOY-276 26 2 24 low
+Play-Doh Set TOY-277 131 30 101 optimal
+Beyblade Burst Set TOY-278 269 21 248 optimal
+Musical Piano Toy TOY-279 200 46 154 optimal
+Thomas Engine Toy TOY-280 309 33 276 optimal
+Doctor Play Kit TOY-281 29 7 22 low
+RC Monster Truck TOY-282 198 12 186 optimal
+Wooden Puzzle TOY-283 333 53 280 optimal
+Play-Doh Set TOY-284 255 8 247 optimal
+Transformers Action Figure TOY-285 53 11 42 medium
+Monopoly Board Game TOY-286 131 22 109 optimal
+Musical Piano Toy TOY-287 45 10 35 medium
+Fisher-Price Rattle TOY-288 128 7 121 optimal
+Magnetic Tiles TOY-289 99 21 78 medium
+STEM Robot Kit TOY-290 132 29 103 optimal
+Dinosaur Figure Set TOY-291 164 31 133 optimal
+STEM Robot Kit TOY-292 330 38 292 optimal
+Bubble Maker Machine TOY-293 191 22 169 optimal
+Toy Basketball Hoop TOY-294 239 17 222 optimal
+Excavator Toy TOY-295 114 28 86 optimal
+Bubble Maker Machine TOY-296 190 29 161 optimal
+Animal Figure Set TOY-297 66 6 60 medium
+Magnetic Tiles TOY-298 39 7 32 low
+Bubble Maker Machine TOY-299 327 39 288 optimal
+UNO Card Game TOY-300 92 21 71 medium

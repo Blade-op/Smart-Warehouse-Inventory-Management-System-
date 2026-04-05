@@ -30,25 +30,26 @@ const salesData = [
 ];
 
 const categoryData = [
-  { name: "Electronics", value: 45, color: "hsl(173, 80%, 40%)" },
-  { name: "Audio", value: 25, color: "hsl(38, 92%, 50%)" },
-  { name: "Wearables", value: 18, color: "hsl(142, 76%, 36%)" },
-  { name: "Accessories", value: 12, color: "hsl(262, 83%, 58%)" },
+  { name: "Building Sets", value: 28, color: "hsl(173, 80%, 40%)" },
+  { name: "Vehicles & RC", value: 22, color: "hsl(38, 92%, 50%)" },
+  { name: "Plush & Dolls", value: 20, color: "hsl(142, 76%, 36%)" },
+  { name: "Board & Educational", value: 18, color: "hsl(262, 83%, 58%)" },
+  { name: "Other toys", value: 12, color: "hsl(330, 70%, 55%)" },
 ];
 
 const demandData = [
-  { product: "iPhone 15 Pro", current: 245, predicted: 320 },
-  { product: "MacBook Air", current: 128, predicted: 180 },
-  { product: "AirPods Pro", current: 450, predicted: 520 },
-  { product: "iPad Pro", current: 85, predicted: 110 },
-  { product: "Apple Watch", current: 210, predicted: 280 },
+  { product: "Building Blocks 100pc", current: 400, predicted: 520 },
+  { product: "Puzzle Cube 3x3", current: 420, predicted: 500 },
+  { product: "Plush Teddy Bear", current: 275, predicted: 340 },
+  { product: "Action Figure 12\"", current: 275, predicted: 310 },
+  { product: "STEM Robot Kit", current: 30, predicted: 85 },
 ];
 
 const deadStockData = [
-  { name: "Lightning Cable", days: 120, value: 850 },
-  { name: "iPhone 12 Case", days: 95, value: 420 },
-  { name: "Old Charger", days: 88, value: 380 },
-  { name: "USB-A Hub", days: 75, value: 290 },
+  { name: "Legacy wooden pull-toy", days: 118, value: 12000 },
+  { name: "Seasonal kite display pack", days: 92, value: 8400 },
+  { name: "Discontinued board game", days: 86, value: 6200 },
+  { name: "Old packaging accessories", days: 71, value: 3100 },
 ];
 
 const Analytics = () => {

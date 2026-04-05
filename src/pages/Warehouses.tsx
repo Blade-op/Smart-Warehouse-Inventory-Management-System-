@@ -25,6 +25,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const statusStyles = {
   operational: "badge-success",
@@ -45,6 +46,7 @@ type WarehouseType = {
 };
 
 const Warehouses = () => {
+  const navigate = useNavigate();
   const [warehouses, setWarehouses] = useState<WarehouseType[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newWarehouse, setNewWarehouse] = useState({
@@ -222,7 +224,16 @@ const Warehouses = () => {
                     {warehouse.address}
                   </p>
                 </div>
-                <Button variant="ghost" size="icon">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  type="button"
+                  aria-label="Open warehouse"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/warehouses/${warehouse._id}`);
+                  }}
+                >
                   <Settings className="w-5 h-5" />
                 </Button>
               </div>

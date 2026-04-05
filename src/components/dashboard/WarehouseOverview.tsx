@@ -87,7 +87,7 @@ export const WarehouseOverview = () => {
               <div
                 key={warehouse._id}
                 className="p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200 cursor-pointer"
-                onClick={() => navigate("/warehouses")}
+                onClick={() => navigate(`/warehouses/${warehouse._id}`)}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div>

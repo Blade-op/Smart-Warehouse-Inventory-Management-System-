@@ -64,6 +64,8 @@ type Product = {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -96,7 +98,11 @@ const Products = () => {
     (product) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.sku.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ).filter((product) => {
+    const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
+    const matchesStatus = selectedStatus === "all" || product.status === selectedStatus;
+    return matchesCategory && matchesStatus;
+  });
 
   const handleAddProduct = async () => {
     const stockNum = parseInt(newProduct.stock);
@@ -188,7 +194,7 @@ const Products = () => {
                     setNewProduct({ ...newProduct, name: e.target.value })
                   }
                   className="input-field"
-                  placeholder="iPhone 15 Pro"
+                  placeholder="Plush Teddy Bear (Large)"
                 />
               </div>
               <div className="grid gap-2">
@@ -214,16 +220,20 @@ const Products = () => {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Electronics">Electronics</SelectItem>
-                    <SelectItem value="Audio">Audio</SelectItem>
-                    <SelectItem value="Wearables">Wearables</SelectItem>
-                    <SelectItem value="Accessories">Accessories</SelectItem>
+                    <SelectItem value="Plush Toys">Plush Toys</SelectItem>
+                    <SelectItem value="RC Vehicles">RC Vehicles</SelectItem>
+                    <SelectItem value="Building Sets">Building Sets</SelectItem>
+                    <SelectItem value="Dolls">Dolls</SelectItem>
+                    <SelectItem value="Board Games">Board Games</SelectItem>
+                    <SelectItem value="Educational">Educational</SelectItem>
+                    <SelectItem value="Action Figures">Action Figures</SelectItem>
+                    <SelectItem value="Role Play">Role Play</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="price">Price ($)</Label>
+                  <Label htmlFor="price">Price (₹)</Label>
                   <Input
                     id="price"
                     type="number"
@@ -277,10 +287,33 @@ const Products = () => {
             className="pl-10 input-field"
           />
         </div>
-        <Button variant="outline" className="gap-2">
-          <Filter className="w-4 h-4" />
-          Filters
-        </Button>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+          <SelectTrigger className="w-[180px] input-field">
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="Plush Toys">Plush Toys</SelectItem>
+            <SelectItem value="RC Vehicles">RC Vehicles</SelectItem>
+            <SelectItem value="Building Sets">Building Sets</SelectItem>
+            <SelectItem value="Dolls">Dolls</SelectItem>
+            <SelectItem value="Board Games">Board Games</SelectItem>
+            <SelectItem value="Educational">Educational</SelectItem>
+            <SelectItem value="Action Figures">Action Figures</SelectItem>
+            <SelectItem value="Role Play">Role Play</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+          <SelectTrigger className="w-[150px] input-field">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Status</SelectItem>
+            <SelectItem value="in-stock">In Stock</SelectItem>
+            <SelectItem value="low-stock">Low Stock</SelectItem>
+            <SelectItem value="out-of-stock">Out of Stock</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Products Table */}
@@ -315,7 +348,7 @@ const Products = () => {
                   <Badge variant="secondary">{product.category}</Badge>
                 </TableCell>
                 <TableCell className="font-mono text-foreground">
-                  ${product.price.toLocaleString()}
+                  ₹{product.price.toLocaleString()}
                 </TableCell>
                 <TableCell className="font-mono text-foreground">
                   {product.stock}

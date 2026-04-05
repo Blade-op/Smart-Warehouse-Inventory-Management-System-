@@ -1,0 +1,46 @@
+services:
+  # Backend API Service
+  - type: web
+    name: smart-warehouse-backend
+    runtime: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
+
+  # Frontend Static Site
+  - type: web
+    name: smart-warehouse-frontend
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+      - key: VITE_FIREBASE_API_KEY
+        sync: false
+      - key: VITE_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: VITE_FIREBASE_PROJECT_ID
+        sync: false
+      - key: VITE_FIREBASE_APP_ID
+        sync: false
+      - key: VITE_GOOGLE_CLIENT_ID
+        sync: false
+
+# Optional: Database (if using Render's managed database)
+# databases:
+#   - name: smart-warehouse-db
+#     databaseName: warehouse_db
+#     user: warehouse_user

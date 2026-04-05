@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7-jammy
+    container_name: smart-warehouse-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: warehouse_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./server/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+    networks:
+      - warehouse-network
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smart-warehouse-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://admin:password@mongodb:27017/warehouse_db?authSource=admin
+      JWT_SECRET: your_secure_jwt_secret_here
+      GOOGLE_CLIENT_ID: your_google_client_id
+      PORT: 5000
+      CLIENT_ORIGIN: http://localhost:3000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - warehouse-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: smart-warehouse-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: http://localhost:5000/api
+      VITE_FIREBASE_API_KEY: your_firebase_api_key
+      VITE_FIREBASE_AUTH_DOMAIN: your_project.firebaseapp.com
+      VITE_FIREBASE_PROJECT_ID: your_project_id
+      VITE_FIREBASE_APP_ID: your_app_id
+      VITE_GOOGLE_CLIENT_ID: your_google_client_id
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - warehouse-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  warehouse-network:
+    driver: bridge

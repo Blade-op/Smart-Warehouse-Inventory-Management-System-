@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
 import Warehouses from "./pages/Warehouses";
+import WarehouseDetail from "./pages/WarehouseDetail";
 import Inventory from "./pages/Inventory";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
@@ -56,6 +57,7 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
               <Route path="/warehouses" element={<Warehouses />} />
+              <Route path="/warehouses/:warehouseId" element={<WarehouseDetail />} />
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/users" element={<Users />} />

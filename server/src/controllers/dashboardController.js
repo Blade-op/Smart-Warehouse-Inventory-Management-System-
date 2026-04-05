@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Product } from "../models/Product.js";
 import { Warehouse } from "../models/Warehouse.js";
 import { InventoryItem } from "../models/InventoryItem.js";
@@ -34,11 +35,18 @@ export const getDashboardMetrics = async (req, res, next) => {
 
 export const getRecentOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find()
+    const filter = {};
+    if (req.query.warehouseId) {
+      if (!mongoose.Types.ObjectId.isValid(req.query.warehouseId)) {
+        return res.status(400).json({ message: "Invalid warehouse id" });
+      }
+      filter.warehouse = req.query.warehouseId;
+    }
+    const orders = await Order.find(filter)
       .populate("items.product", "name")
       .populate("warehouse", "name")
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(req.query.warehouseId ? 100 : 10)
       .lean();
 
     const formattedOrders = orders.map((order) => ({
@@ -52,6 +60,38 @@ export const getRecentOrders = async (req, res, next) => {
     }));
 
     res.json(formattedOrders);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getWarehouseOrdersDetail = async (req, res, next) => {
+  try {
+    const { warehouseId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(warehouseId)) {
+      return res.status(400).json({ message: "Invalid warehouse id" });
+    }
+    const orders = await Order.find({ warehouse: warehouseId })
+      .populate("items.product", "name sku")
+      .sort({ createdAt: -1 })
+      .limit(100)
+      .lean();
+
+    const formatted = orders.map((order) => ({
+      _id: order._id,
+      orderNumber: order.orderNumber,
+      status: order.status,
+      createdAt: order.createdAt,
+      totalAmount: order.totalAmount,
+      items: (order.items || []).map((it) => ({
+        name: it.product?.name || "Unknown",
+        sku: it.product?.sku || "",
+        quantity: it.quantity,
+        lineTotal: it.quantity * (it.price || 0),
+      })),
+    }));
+
+    res.json(formatted);
   } catch (error) {
     next(error);
   }

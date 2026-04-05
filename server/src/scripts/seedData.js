@@ -3,271 +3,195 @@ import mongoose from "mongoose";
 import { Product } from "../models/Product.js";
 import { Warehouse } from "../models/Warehouse.js";
 import { InventoryItem } from "../models/InventoryItem.js";
+import { Order } from "../models/Order.js";
 
 dotenv.config();
 
 const seedData = async () => {
   try {
-    // Connect to database
     const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/warehouse";
     await mongoose.connect(mongoUri);
     console.log("Connected to MongoDB");
 
-    // Clear existing data (optional - comment out if you want to keep existing data)
-    // await Product.deleteMany({});
-    // await Warehouse.deleteMany({});
-    // await InventoryItem.deleteMany({});
+    await InventoryItem.deleteMany({});
+    await Order.deleteMany({});
+    await Product.deleteMany({});
+    await Warehouse.deleteMany({});
+    console.log("Cleared warehouses, products, inventory, and orders.\n");
 
-    // Create Warehouses
-    const warehouses = [
-      { name: "Warehouse A", location: "New York, NY", address: "123 Main St, New York, NY 10001" },
-      { name: "Warehouse B", location: "Los Angeles, CA", address: "456 Broadway, Los Angeles, CA 90001" },
-      { name: "Warehouse C", location: "Chicago, IL", address: "789 Michigan Ave, Chicago, IL 60601" },
-      { name: "Warehouse D", location: "Houston, TX", address: "321 Commerce St, Houston, TX 77002" },
+    const warehousesData = [
+      {
+        name: "Delhi warehouse",
+        location: "Delhi, India",
+        address: "Plot 12, Industrial Area Phase II, Okhla, New Delhi, Delhi 110020",
+        capacity: 78,
+        staff: 32,
+        monthlyThroughput: 9200,
+        status: "operational",
+      },
+      {
+        name: "Mumbai warehouse",
+        location: "Mumbai, India",
+        address: "Unit 4B, MIDC Logistics Park, Taloja, Navi Mumbai, Maharashtra 410208",
+        capacity: 85,
+        staff: 41,
+        monthlyThroughput: 12400,
+        status: "operational",
+      },
+      {
+        name: "Pune warehouse",
+        location: "Pune, India",
+        address: "Gate 7, Chakan Industrial Area, Pune, Maharashtra 410501",
+        capacity: 68,
+        staff: 24,
+        monthlyThroughput: 7100,
+        status: "operational",
+      },
+      {
+        name: "Hyderabad warehouse",
+        location: "Hyderabad, India",
+        address: "Survey No. 88, Shamshabad Logistics Zone, Hyderabad, Telangana 501218",
+        capacity: 72,
+        staff: 28,
+        monthlyThroughput: 8800,
+        status: "operational",
+      },
     ];
 
-    const createdWarehouses = [];
-    for (const wh of warehouses) {
-      const existing = await Warehouse.findOne({ name: wh.name });
-      if (existing) {
-        console.log(`Warehouse "${wh.name}" already exists, skipping...`);
-        createdWarehouses.push(existing);
-      } else {
-        const warehouse = await Warehouse.create(wh);
-        createdWarehouses.push(warehouse);
-        console.log(`✅ Created warehouse: ${warehouse.name}`);
-      }
-    }
+    const createdWarehouses = await Warehouse.insertMany(warehousesData);
+    createdWarehouses.forEach((w) => console.log(`Created warehouse: ${w.name}`));
 
-    // Create Products
+    const [delhi, mumbai, pune, hyderabad] = createdWarehouses;
+
     const products = [
-      {
-        name: "iPhone 15 Pro",
-        sku: "IPH15PRO-128",
-        category: "Electronics",
-        price: 999.99,
-        status: "in-stock",
-      },
-      {
-        name: "iPhone 15",
-        sku: "IPH15-128",
-        category: "Electronics",
-        price: 799.99,
-        status: "in-stock",
-      },
-      {
-        name: "MacBook Air M3",
-        sku: "MBA-M3-256",
-        category: "Computers",
-        price: 1299.99,
-        status: "in-stock",
-      },
-      {
-        name: "MacBook Pro 16",
-        sku: "MBP-16-M3",
-        category: "Computers",
-        price: 2499.99,
-        status: "in-stock",
-      },
-      {
-        name: "iPad Pro 12.9",
-        sku: "IPAD-PRO-128",
-        category: "Tablets",
-        price: 1099.99,
-        status: "in-stock",
-      },
-      {
-        name: "AirPods Pro",
-        sku: "AIRPODS-PRO",
-        category: "Audio",
-        price: 249.99,
-        status: "in-stock",
-      },
-      {
-        name: "AirPods Max",
-        sku: "AIRPODS-MAX",
-        category: "Audio",
-        price: 549.99,
-        status: "low-stock",
-      },
-      {
-        name: "Apple Watch Ultra",
-        sku: "AW-ULTRA",
-        category: "Wearables",
-        price: 799.99,
-        status: "in-stock",
-      },
-      {
-        name: "Magic Keyboard",
-        sku: "MK-PRO",
-        category: "Accessories",
-        price: 149.99,
-        status: "low-stock",
-      },
-      {
-        name: "Apple Pencil Pro",
-        sku: "AP-PRO",
-        category: "Accessories",
-        price: 129.99,
-        status: "in-stock",
-      },
-      {
-        name: "Samsung Galaxy S24",
-        sku: "SGS24-256",
-        category: "Electronics",
-        price: 899.99,
-        status: "in-stock",
-      },
-      {
-        name: "Dell XPS 15",
-        sku: "Dell-XPS15",
-        category: "Computers",
-        price: 1799.99,
-        status: "in-stock",
-      },
-      {
-        name: "Sony WH-1000XM5",
-        sku: "SONY-WH1000",
-        category: "Audio",
-        price: 399.99,
-        status: "in-stock",
-      },
-      {
-        name: "Logitech MX Master 3",
-        sku: "LOG-MX3",
-        category: "Accessories",
-        price: 99.99,
-        status: "in-stock",
-      },
-      {
-        name: "Samsung 4K Monitor",
-        sku: "SAM-4K-27",
-        category: "Displays",
-        price: 499.99,
-        status: "in-stock",
-      },
+      { name: "Plush Teddy Bear (Large)", sku: "TOY-PLUSH-BEAR-L", category: "Plush Toys", price: 599, status: "in-stock" },
+      { name: "RC Rally Car 1:16", sku: "TOY-RC-RALLY-16", category: "RC Vehicles", price: 1299, status: "in-stock" },
+      { name: "Building Blocks 100 Pieces", sku: "TOY-BLOCK-100", category: "Building Sets", price: 449, status: "in-stock" },
+      { name: "Fashion Doll Studio Set", sku: "TOY-DOLL-STUDIO", category: "Dolls", price: 899, status: "in-stock" },
+      { name: "Brick City Airport Playset", sku: "TOY-BRICK-CITY", category: "Building Sets", price: 1599, status: "low-stock" },
+      { name: "Jungle Adventure Puzzle 500pc", sku: "TOY-PZL-JUNGLE", category: "Board Games", price: 349, status: "in-stock" },
+      { name: "Wooden Train & Track Set", sku: "TOY-WOOD-TRAIN", category: "Wooden Toys", price: 799, status: "in-stock" },
+      { name: "Superhero Action Figure 12\"", sku: "TOY-ACT-HERO-12", category: "Action Figures", price: 399, status: "in-stock" },
+      { name: "Snakes & Ladders Classic", sku: "TOY-BG-SNL", category: "Board Games", price: 199, status: "in-stock" },
+      { name: "Soft Foam Blaster Set", sku: "TOY-FOAM-SHOOT", category: "Outdoor Play", price: 649, status: "in-stock" },
+      { name: "Mini Piano 25 Keys", sku: "TOY-KEY-MINI-25", category: "Musical Toys", price: 1199, status: "in-stock" },
+      { name: "Doctor Dress-Up Play Kit", sku: "TOY-PLAY-DOC", category: "Role Play", price: 549, status: "in-stock" },
+      { name: "Die-cast Cars 5-Pack", sku: "TOY-DIE-5PK", category: "Vehicles", price: 699, status: "in-stock" },
+      { name: "Puzzle Cube 3x3", sku: "TOY-RUBIK-3", category: "Puzzles", price: 299, status: "in-stock" },
+      { name: "STEM Robot Building Kit", sku: "TOY-STEM-BOT", category: "Educational", price: 2299, status: "low-stock" },
+      { name: "Friction Monster Truck", sku: "TOY-TRUCK-MON", category: "Vehicles", price: 449, status: "in-stock" },
+      { name: "Door Basketball Hoop Set", sku: "TOY-BB-HOOP", category: "Sports Toys", price: 899, status: "in-stock" },
+      { name: "Light-Up Yo-Yo Pro", sku: "TOY-YOYO-PRO", category: "Classic Toys", price: 249, status: "in-stock" },
+      { name: "Stacking Rings Baby Toy", sku: "TOY-BABY-RINGS", category: "Infant Toys", price: 329, status: "in-stock" },
+      { name: "Kitchen Playset 22 Pieces", sku: "TOY-KITCHEN-22", category: "Role Play", price: 1399, status: "in-stock" },
     ];
 
-    const createdProducts = [];
-    for (const prod of products) {
-      const existing = await Product.findOne({ sku: prod.sku });
-      if (existing) {
-        console.log(`Product "${prod.name}" (${prod.sku}) already exists, skipping...`);
-        createdProducts.push(existing);
-      } else {
-        const product = await Product.create(prod);
-        createdProducts.push(product);
-        console.log(`✅ Created product: ${product.name} (${product.sku})`);
-      }
-    }
+    const createdProducts = await Product.insertMany(products);
+    createdProducts.forEach((p) => console.log(`Created product: ${p.name} (${p.sku})`));
 
-    // Create Inventory Items
-    const inventoryItems = [
-      // iPhone 15 Pro in multiple warehouses
-      {
-        product: createdProducts.find((p) => p.sku === "IPH15PRO-128")._id,
-        warehouse: createdWarehouses[0]._id, // Warehouse A
-        quantity: 45,
-        reserved: 5,
-        available: 40,
-        status: "optimal",
-      },
-      {
-        product: createdProducts.find((p) => p.sku === "IPH15PRO-128")._id,
-        warehouse: createdWarehouses[1]._id, // Warehouse B
-        quantity: 25,
-        reserved: 2,
-        available: 23,
-        status: "optimal",
-      },
-      // iPhone 15
-      {
-        product: createdProducts.find((p) => p.sku === "IPH15-128")._id,
-        warehouse: createdWarehouses[0]._id,
-        quantity: 60,
-        reserved: 10,
-        available: 50,
-        status: "optimal",
-      },
-      // MacBook Air M3
-      {
-        product: createdProducts.find((p) => p.sku === "MBA-M3-256")._id,
-        warehouse: createdWarehouses[0]._id,
-        quantity: 30,
-        reserved: 3,
-        available: 27,
-        status: "optimal",
-      },
-      {
-        product: createdProducts.find((p) => p.sku === "MBA-M3-256")._id,
-        warehouse: createdWarehouses[2]._id, // Warehouse C
-        quantity: 20,
-        reserved: 1,
-        available: 19,
-        status: "optimal",
-      },
-      // AirPods Max (low stock)
-      {
-        product: createdProducts.find((p) => p.sku === "AIRPODS-MAX")._id,
-        warehouse: createdWarehouses[1]._id,
-        quantity: 8,
-        reserved: 0,
-        available: 8,
-        status: "low",
-      },
-      // Magic Keyboard (low stock)
-      {
-        product: createdProducts.find((p) => p.sku === "MK-PRO")._id,
-        warehouse: createdWarehouses[0]._id,
-        quantity: 5,
-        reserved: 0,
-        available: 5,
-        status: "critical",
-      },
-      // iPad Pro
-      {
-        product: createdProducts.find((p) => p.sku === "IPAD-PRO-128")._id,
-        warehouse: createdWarehouses[0]._id,
-        quantity: 35,
-        reserved: 5,
-        available: 30,
-        status: "optimal",
-      },
-      // AirPods Pro
-      {
-        product: createdProducts.find((p) => p.sku === "AIRPODS-PRO")._id,
-        warehouse: createdWarehouses[1]._id,
-        quantity: 50,
-        reserved: 10,
-        available: 40,
-        status: "optimal",
-      },
-      // Apple Watch Ultra
-      {
-        product: createdProducts.find((p) => p.sku === "AW-ULTRA")._id,
-        warehouse: createdWarehouses[2]._id,
-        quantity: 25,
-        reserved: 2,
-        available: 23,
-        status: "optimal",
-      },
+    const bySku = (sku) => createdProducts.find((p) => p.sku === sku);
+
+    const inventoryRows = [
+      { sku: "TOY-PLUSH-BEAR-L", warehouse: delhi, quantity: 180, reserved: 12, status: "optimal" },
+      { sku: "TOY-PLUSH-BEAR-L", warehouse: mumbai, quantity: 95, reserved: 5, status: "optimal" },
+      { sku: "TOY-RC-RALLY-16", warehouse: mumbai, quantity: 72, reserved: 4, status: "optimal" },
+      { sku: "TOY-RC-RALLY-16", warehouse: hyderabad, quantity: 48, reserved: 2, status: "optimal" },
+      { sku: "TOY-BLOCK-100", warehouse: delhi, quantity: 240, reserved: 20, status: "optimal" },
+      { sku: "TOY-BLOCK-100", warehouse: pune, quantity: 160, reserved: 10, status: "optimal" },
+      { sku: "TOY-DOLL-STUDIO", warehouse: mumbai, quantity: 110, reserved: 8, status: "optimal" },
+      { sku: "TOY-DOLL-STUDIO", warehouse: pune, quantity: 65, reserved: 3, status: "optimal" },
+      { sku: "TOY-BRICK-CITY", warehouse: delhi, quantity: 22, reserved: 2, status: "low" },
+      { sku: "TOY-BRICK-CITY", warehouse: hyderabad, quantity: 14, reserved: 0, status: "critical" },
+      { sku: "TOY-PZL-JUNGLE", warehouse: pune, quantity: 130, reserved: 6, status: "optimal" },
+      { sku: "TOY-WOOD-TRAIN", warehouse: delhi, quantity: 88, reserved: 4, status: "optimal" },
+      { sku: "TOY-WOOD-TRAIN", warehouse: mumbai, quantity: 52, reserved: 2, status: "optimal" },
+      { sku: "TOY-ACT-HERO-12", warehouse: hyderabad, quantity: 200, reserved: 15, status: "optimal" },
+      { sku: "TOY-ACT-HERO-12", warehouse: delhi, quantity: 75, reserved: 5, status: "optimal" },
+      { sku: "TOY-BG-SNL", warehouse: pune, quantity: 310, reserved: 25, status: "optimal" },
+      { sku: "TOY-FOAM-SHOOT", warehouse: mumbai, quantity: 140, reserved: 10, status: "optimal" },
+      { sku: "TOY-KEY-MINI-25", warehouse: hyderabad, quantity: 36, reserved: 2, status: "low" },
+      { sku: "TOY-PLAY-DOC", warehouse: delhi, quantity: 125, reserved: 8, status: "optimal" },
+      { sku: "TOY-DIE-5PK", warehouse: pune, quantity: 98, reserved: 6, status: "optimal" },
+      { sku: "TOY-DIE-5PK", warehouse: hyderabad, quantity: 84, reserved: 4, status: "optimal" },
+      { sku: "TOY-RUBIK-3", warehouse: mumbai, quantity: 420, reserved: 30, status: "optimal" },
+      { sku: "TOY-STEM-BOT", warehouse: delhi, quantity: 18, reserved: 1, status: "low" },
+      { sku: "TOY-STEM-BOT", warehouse: mumbai, quantity: 12, reserved: 0, status: "critical" },
+      { sku: "TOY-TRUCK-MON", warehouse: pune, quantity: 175, reserved: 12, status: "optimal" },
+      { sku: "TOY-BB-HOOP", warehouse: hyderabad, quantity: 55, reserved: 4, status: "optimal" },
+      { sku: "TOY-YOYO-PRO", warehouse: delhi, quantity: 260, reserved: 18, status: "optimal" },
+      { sku: "TOY-BABY-RINGS", warehouse: mumbai, quantity: 190, reserved: 10, status: "optimal" },
+      { sku: "TOY-KITCHEN-22", warehouse: hyderabad, quantity: 62, reserved: 3, status: "optimal" },
+      { sku: "TOY-KITCHEN-22", warehouse: pune, quantity: 44, reserved: 2, status: "optimal" },
     ];
 
-    for (const item of inventoryItems) {
-      const existing = await InventoryItem.findOne({
-        product: item.product,
-        warehouse: item.warehouse,
+    for (const row of inventoryRows) {
+      const product = bySku(row.sku);
+      if (!product) continue;
+      const { quantity, reserved, status, warehouse } = row;
+      const available = quantity - reserved;
+      await InventoryItem.create({
+        product: product._id,
+        warehouse: warehouse._id,
+        quantity,
+        reserved,
+        available,
+        status,
       });
-      if (!existing) {
-        await InventoryItem.create(item);
-        console.log(`✅ Created inventory item`);
-      }
+      console.log(`Inventory: ${row.sku} @ ${warehouse.name} (qty ${quantity})`);
     }
+
+    for (const wh of createdWarehouses) {
+      const agg = await InventoryItem.aggregate([
+        { $match: { warehouse: wh._id } },
+        { $group: { _id: null, total: { $sum: "$quantity" } } },
+      ]);
+      const totalItems = agg[0]?.total ?? 0;
+      await Warehouse.findByIdAndUpdate(wh._id, { totalItems });
+    }
+
+    const sampleOrders = [
+      {
+        orderNumber: "TOY-ORD-2025-1001",
+        status: "processing",
+        items: [
+          { product: bySku("TOY-BLOCK-100")._id, quantity: 48, price: 449 },
+          { product: bySku("TOY-RUBIK-3")._id, quantity: 24, price: 299 },
+        ],
+        warehouse: delhi._id,
+        totalAmount: 48 * 449 + 24 * 299,
+      },
+      {
+        orderNumber: "TOY-ORD-2025-1002",
+        status: "shipped",
+        items: [{ product: bySku("TOY-PLUSH-BEAR-L")._id, quantity: 60, price: 599 }],
+        warehouse: mumbai._id,
+        totalAmount: 60 * 599,
+      },
+      {
+        orderNumber: "TOY-ORD-2025-1003",
+        status: "pending",
+        items: [
+          { product: bySku("TOY-RC-RALLY-16")._id, quantity: 15, price: 1299 },
+          { product: bySku("TOY-FOAM-SHOOT")._id, quantity: 30, price: 649 },
+        ],
+        warehouse: hyderabad._id,
+        totalAmount: 15 * 1299 + 30 * 649,
+      },
+      {
+        orderNumber: "TOY-ORD-2025-1004",
+        status: "completed",
+        items: [{ product: bySku("TOY-BG-SNL")._id, quantity: 100, price: 199 }],
+        warehouse: pune._id,
+        totalAmount: 100 * 199,
+      },
+    ];
+
+    await Order.insertMany(sampleOrders);
+    console.log(`\nCreated ${sampleOrders.length} sample orders.`);
 
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log("✅ Seed data created successfully!");
-    console.log(`📦 Created/Skipped ${createdProducts.length} products`);
-    console.log(`🏢 Created/Skipped ${createdWarehouses.length} warehouses`);
+    console.log("Seed complete: toy manufacturing demo data");
+    console.log(`Warehouses: ${createdWarehouses.length} | Products: ${createdProducts.length}`);
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
     await mongoose.connection.close();
