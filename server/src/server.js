@@ -21,29 +21,22 @@ await connectDB();
 
 const app = express();
 
-// ✅ FIXED CORS (Production + Local)
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:8080",
-  "https://smart-warehouse-inventory-managemen-gamma.vercel.app"
-];
-
+// ✅ BULLETPROOF CORS FIX
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log("❌ CORS blocked:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:8080",
+      "https://smart-warehouse-inventory-managemen-gamma.vercel.app",
+      "https://smart-warehouse-inventory-management-system-58e0thy51.vercel.app"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
-// ✅ Handle preflight requests
+// ✅ HANDLE PREFLIGHT (VERY IMPORTANT)
 app.options("*", cors());
 
 // Middleware
