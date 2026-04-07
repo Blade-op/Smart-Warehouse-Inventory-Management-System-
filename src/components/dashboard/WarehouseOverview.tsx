@@ -16,28 +16,6 @@ export const WarehouseOverview = () => {
     },
   });
 
-  const { data: inventoryStats = [] } = useQuery({
-    queryKey: ["warehouse-stats"],
-    queryFn: async () => {
-      const { data } = await api.get("/inventory");
-      // Group by warehouse and calculate stats
-      const stats: any = {};
-      data.forEach((item: any) => {
-        const warehouseId = item.warehouse?._id || item.warehouse;
-        if (!stats[warehouseId]) {
-          stats[warehouseId] = {
-            items: 0,
-            quantity: 0,
-          };
-        }
-        stats[warehouseId].items += 1;
-        stats[warehouseId].quantity += item.quantity || 0;
-      });
-      return stats;
-    },
-    enabled: warehouses.length > 0,
-  });
-
   if (isLoading) {
     return (
       <div className="glass-card rounded-xl p-6 animate-slide-in-up" style={{ animationDelay: "400ms" }}>
@@ -48,15 +26,11 @@ export const WarehouseOverview = () => {
     );
   }
 
-  // Calculate capacity based on total items
   const warehousesWithStats = warehouses.map((warehouse: any) => {
-    const stats = inventoryStats[warehouse._id] || { items: 0, quantity: 0 };
-    // Assume capacity is based on quantity (10000 = 100%)
-    const capacity = Math.min((stats.quantity / 100) * 100, 100);
     return {
       ...warehouse,
-      items: stats.quantity,
-      capacity: Math.round(capacity),
+      items: warehouse.totalItems,
+      capacity: warehouse.capacity,
     };
   });
 

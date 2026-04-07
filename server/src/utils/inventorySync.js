@@ -14,5 +14,10 @@ export async function syncWarehouseTotalItems(warehouseId, session) {
     { $group: { _id: null, total: { $sum: "$quantity" } } },
   ]).session(session);
   const total = agg[0]?.total ?? 0;
-  await Warehouse.findByIdAndUpdate(warehouseId, { totalItems: total }, { session });
+  
+  // Dynamically calculate capacity assuming a baseline max capacity of 100,000 items
+  const maxCapacity = 100000;
+  const capacity = Math.min(Math.round((total / maxCapacity) * 100), 100);
+
+  await Warehouse.findByIdAndUpdate(warehouseId, { totalItems: total, capacity }, { session });
 }

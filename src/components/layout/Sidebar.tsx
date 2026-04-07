@@ -54,8 +54,7 @@ export const Sidebar = () => {
         </div>
         {!collapsed && (
           <div className="animate-fade-in">
-            <h1 className="text-lg font-bold text-foreground">Angiras</h1>
-            <p className="text-xs text-muted-foreground">Enterprises</p>
+            <h1 className="text-lg font-bold text-foreground">WareFlow</h1>
           </div>
         )}
       </div>

@@ -18,15 +18,16 @@ export function guessCategory(name) {
   const n = name.toLowerCase();
   if (n.includes("lego") || n.includes("blocks") || n.includes("jenga")) return "Building Sets";
   if (n.includes("doll") || n.includes("barbie") || n.includes("princess")) return "Dolls";
-  if (n.includes("car") || n.includes("truck") || n.includes("wheels") || n.includes("matchbox"))
-    return "Vehicles";
+  if (/\b(car|truck|wheels|matchbox|excavator)\b/.test(n)) return "Vehicles";
   if (n.includes("rc ") || n.includes("drone") || n.includes("monster truck")) return "RC Vehicles";
-  if (n.includes("board") || n.includes("monopoly") || n.includes("uno")) return "Board Games";
-  if (n.includes("puzzle") || n.includes("rubik") || n.includes("wooden puzzle")) return "Puzzles";
+  if (n.includes("board") || n.includes("monopoly") || n.includes("uno") || n.includes("card game")) return "Board Games";
+  if (n.includes("puzzle") || n.includes("rubik") || n.includes("wooden puzzle") || n.includes("tiles")) return "Puzzles";
   if (n.includes("stem") || n.includes("robot") || n.includes("learning laptop")) return "Educational";
-  if (n.includes("nerf") || n.includes("blaster") || n.includes("foam sword")) return "Outdoor Play";
+  if (n.includes("nerf") || n.includes("blaster") || n.includes("foam sword") || n.includes("bubble")) return "Outdoor Play";
   if (n.includes("piano") || n.includes("musical")) return "Musical Toys";
-  if (n.includes("doctor") || n.includes("kitchen play") || n.includes("play-doh")) return "Role Play";
+  if (n.includes("doctor") || n.includes("kitchen play") || n.includes("play-doh") || n.includes("figure") || n.includes("play set")) return "Role Play";
+  if (n.includes("hoop") || n.includes("basketball") || n.includes("sports")) return "Sports Toys";
+  if (n.includes("plush") || n.includes("bear") || n.includes("animal")) return "Plush Toys";
   return "Toys";
 }
 

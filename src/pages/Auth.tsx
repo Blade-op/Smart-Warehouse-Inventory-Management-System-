@@ -73,7 +73,7 @@ const Auth = () => {
       await register(registerData.name, registerData.email, registerData.password);
       toast({
         title: "Account created!",
-        description: "Welcome to Angiras Enterprises. Your account has been created with user privileges.",
+        description: "Welcome to WareFlow. Your account has been created with user privileges.",
       });
       navigate("/dashboard");
     } catch (error: any) {
@@ -107,7 +107,7 @@ const Auth = () => {
           await loginWithGoogle(response.access_token);
           toast({
             title: "Signed in with Google",
-            description: "Welcome to Angiras Enterprises.",
+            description: "Welcome to WareFlow.",
           });
           navigate("/dashboard");
         },
@@ -153,8 +153,7 @@ const Auth = () => {
               <Box className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Angiras</h1>
-              <p className="text-muted-foreground">Enterprises</p>
+              <h1 className="text-3xl font-bold text-foreground">WareFlow</h1>
             </div>
           </div>
 
@@ -193,7 +192,7 @@ const Auth = () => {
               <Box className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Angiras</h1>
+              <h1 className="text-2xl font-bold text-foreground">WareFlow</h1>
             </div>
           </div>
 
@@ -221,7 +220,7 @@ const Auth = () => {
                       <Input
                         id="login-email"
                         type="email"
-                        placeholder="admin@angiras.com"
+                        placeholder="admin@wareflow.com"
                         value={loginData.email}
                         onChange={(e) =>
                           setLoginData({ ...loginData, email: e.target.value })
@@ -311,7 +310,7 @@ const Auth = () => {
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold text-foreground">Create account</h2>
                   <p className="text-muted-foreground">
-                    Get started with Angiras Enterprises today
+                    Get started with WareFlow today
                   </p>
                 </div>
 
